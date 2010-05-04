@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
-  s.name = 'seedling'
-  s.version = '1.0.0'
+  s.name = 'seed'
+  s.version = '1.0.1'
   s.summary = 'Another simple seeding library for Rails'
   s.authors = ["Jeremy Durham"]
   s.date = '2010-04-07'
