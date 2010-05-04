@@ -1,5 +1,6 @@
 class Seed
   VERSION = '1.0.2'
+  @seeds = {}
   
   def self.plant(klass, name, attributes={}, &block)    
     raise RuntimeError, "You cannot overwrite an existing seed" if self.planted?(klass, name)
@@ -16,7 +17,6 @@ class Seed
   end
 
   def self.planted?(klass, name)
-    @seeds ||= {}
     @seeds[klass] ||= {}
     @seeds[klass][name]
   end
