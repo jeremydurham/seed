@@ -6,7 +6,8 @@ Another seeding library for Ruby
 Usage
 -----
 
-Planting a seed:
+Planting a seed
+---------------
 
 Seed supports two syntaxes:
 
@@ -20,7 +21,8 @@ or:
 
 Attempting to overwrite an existing seed will result in an error.
 
-Retrieving a seed:
+Retrieving a seed
+-----------------
 
     User.seed(:bob)
 
