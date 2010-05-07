@@ -4,7 +4,22 @@ require 'active_record'
 require 'seed'
 
 class User < ActiveRecord::Base
+  has_many :user_roles
+  has_many :users, :through => :user_roles
+  
   validates_presence_of :email
+  
+  attr_protected :roles
+end
+
+class Role < ActiveRecord::Base
+  has_many :user_roles
+  has_many :users, :through => :user_roles
+end
+
+class UserRole < ActiveRecord::Base
+  belongs_to :role
+  belongs_to :user
 end
 
 describe Seed do
@@ -26,14 +41,22 @@ describe Seed do
         User.seed(:tester, :email => 'test@testing.com')
       end.should change(User, :count).by(1)
     end
-    
+        
     describe "given a block" do
       it "should create a new seed" do
         lambda do
-          User.seed(:block_user) do |user|
-            user.email = 'test@test.com'
+          Role.seed(:system_administrator) do |role|
+            role.name = 'System Administrator'
+            role.role = 'system_administrator'
           end
-        end.should change(User, :count).by(1)
+        end.should change(Role, :count).by(1)
+      end
+      
+      it "should set a protected attribute" do
+        User.seed(:user_with_role) do |user|
+          user.email = 'user_with_role@example.com'
+          user.roles = [Role.seed(:system_administrator)]
+        end
       end
     end    
   end
