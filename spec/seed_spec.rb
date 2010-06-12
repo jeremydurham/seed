@@ -22,6 +22,9 @@ class UserRole < ActiveRecord::Base
   belongs_to :user
 end
 
+class Admin < User
+end
+
 describe Seed do
   before do
     ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
@@ -71,6 +74,18 @@ describe Seed do
     it "should return a seed" do
       @user = User.seed(:new_user, :email => 'newuser@test.com')
       @user.should == User.seed(:new_user)
+    end
+  end
+  
+  describe "retrieving a row" do
+    it "should raise a RuntimeError when retrieving an invalid row" do
+      lambda do
+        Admin.seeds
+      end.should raise_error(RuntimeError)
+    end
+    
+    it "should return a row of seeds" do
+      User.seeds.should_not be_empty
     end
   end
 end

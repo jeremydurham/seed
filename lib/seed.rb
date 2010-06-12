@@ -1,10 +1,10 @@
 class Seed
-  VERSION = '1.0.2'
+  VERSION = '1.0.3'
   @seeds = {}
   
-  def self.plant(klass, name, attributes={}, &block)    
+  def self.plant(klass, name, attributes={}, &block)
     raise RuntimeError, "You cannot overwrite an existing seed" if self.planted?(klass, name)
-    
+
     if block_given?
       @seeds[klass][name] = klass.create!(&block)
     else
@@ -20,6 +20,11 @@ class Seed
     @seeds[klass] ||= {}
     @seeds[klass][name]
   end
+  
+  def self.row(klass)
+    @seeds[klass]
+  end
+    
 end
 
 class ActiveRecord::Base
@@ -33,5 +38,9 @@ class ActiveRecord::Base
         Seed.retrieve(self, options.first)
       end
     end
+  end
+  
+  def self.seeds
+    Seed.row(self) || raise(RuntimeError, "No row of seeds for #{self}")
   end
 end
