@@ -6,6 +6,11 @@ Another seeding library for Ruby
 Usage
 -----
 
+Rails 3 and Ruby 1.9
+--------------------
+
+Seed is Rails 3 and Ruby 1.9 compatible
+
 Planting a seed
 ---------------
 
@@ -30,6 +35,8 @@ Attempting to retrieve a non-existent seed will result in an error.
 
 Rake Task
 ---------
+
+**NOTE**: This step is only needed for Rails 2.x
 
 Seed comes with a rake task to make creating multiple "seeds" easier. In your Rakefile, add the following:
 
