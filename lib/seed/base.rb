@@ -9,7 +9,12 @@ module Seed
       if block_given?
         @seeds[klass][name] = klass.create!(&block)
       else
-        @seeds[klass][name] = klass.create!(attributes)
+        seed = klass.new
+        attributes.each do |attribute, value|
+          seed.send(:"#{attribute}=", value)
+        end
+        seed.save!
+        @seeds[klass][name] = seed
       end
     end
 

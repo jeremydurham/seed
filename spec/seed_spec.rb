@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'spec'
+require 'rspec'
 require 'active_record'
 require 'seed'
 
@@ -44,6 +44,11 @@ describe Seed do
         User.seed(:tester, :email => 'test@testing.com')
       end.should change(User, :count).by(1)
     end
+    
+    it "should set a protected attribute" do
+      User.seed(:another_tester, :email => 'another_tester@testing.com', :roles => [Role.seed(:user, :name => 'User', :role => 'user')])
+      User.seed(:another_tester).roles.should_not be_nil
+    end
         
     describe "given a block" do
       it "should create a new seed" do
@@ -60,6 +65,7 @@ describe Seed do
           user.email = 'user_with_role@example.com'
           user.roles = [Role.seed(:system_administrator)]
         end
+        User.seed(:user_with_role).roles.should_not be_nil
       end
     end    
   end
