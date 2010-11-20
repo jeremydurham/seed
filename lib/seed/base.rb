@@ -1,6 +1,5 @@
 module Seed
   class Base
-    VERSION = '1.1.0.pre'
     @seeds = {}
   
     def self.plant(klass, name, attributes={}, &block)
