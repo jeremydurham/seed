@@ -19,7 +19,7 @@ PROJECT_SUMMARY     = SUMMARY
 PROJECT_DESCRIPTION = SUMMARY
 
 PKG_BUILD    = ENV['PKG_BUILD'] ? '.' + ENV['PKG_BUILD'] : ''
-GEM_VERSION  = Seed::Base::VERSION + PKG_BUILD
+GEM_VERSION  = Seed::VERSION + PKG_BUILD
 RELEASE_NAME = "REL #{GEM_VERSION}"
 #
 # ==== Gemspec and installation
@@ -27,7 +27,7 @@ RELEASE_NAME = "REL #{GEM_VERSION}"
 
 spec = Gem::Specification.new do |s|
   s.name = NAME
-  s.version = Seed::Base::VERSION
+  s.version = Seed::VERSION
   s.platform = Gem::Platform::RUBY
   s.has_rdoc = true
   s.extra_rdoc_files = ["README.md", "LICENSE"]
@@ -46,7 +46,7 @@ end
 
 desc "install the gem locally"
 task :install => [:clean, :package] do
-  sh %{sudo gem install pkg/#{NAME}-#{Seed::Base::VERSION} --no-update-sources}
+  sh %{sudo gem install pkg/#{NAME}-#{Seed::VERSION} --no-update-sources}
 end
 
 desc "create a gemspec file"
