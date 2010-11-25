@@ -32,11 +32,11 @@ describe Seed do
   end
   
   describe "planting a seed" do    
-    it "should raise a RuntimeError when trying to overwrite a seed" do
+    it "should raise a SeedOverwriteError when trying to overwrite a seed" do
       User.seed(:first, :email => 'test@testing.com')
       lambda do
         User.seed(:first, :email => 'testing@test.com')
-      end.should raise_error(RuntimeError)
+      end.should raise_error(SeedOverwriteError)
     end
     
     it "should create a new seed given valid attributes" do
@@ -71,10 +71,10 @@ describe Seed do
   end
   
   describe "retrieving a seed" do
-    it "should raise a RuntimeError when trying to retrieve an invalid seed" do
+    it "should raise a MissingSeedError when trying to retrieve an invalid seed" do
       lambda do
         User.seed(:invalid_user)
-      end.should raise_error(RuntimeError)
+      end.should raise_error(MissingSeedError)
     end
     
     it "should return a seed" do
@@ -84,10 +84,10 @@ describe Seed do
   end
   
   describe "retrieving a row" do
-    it "should raise a RuntimeError when retrieving an invalid row" do
+    it "should raise a MissingRowError when retrieving an invalid row" do
       lambda do
         Admin.seeds
-      end.should raise_error(RuntimeError)
+      end.should raise_error(MissingRowError)
     end
     
     it "should return a row of seeds" do

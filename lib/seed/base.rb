@@ -3,7 +3,7 @@ module Seed
     @seeds = {}
   
     def self.plant(klass, name, attributes={}, &block)
-      raise RuntimeError, "You cannot overwrite an existing seed" if self.planted?(klass, name)
+      raise SeedOverwriteError, "You cannot overwrite an existing seed" if self.planted?(klass, name)
 
       if block_given?
         @seeds[klass][name] = klass.create!(&block)
@@ -18,7 +18,7 @@ module Seed
     end
 
     def self.retrieve(klass, name)
-      self.planted?(klass, name) || raise(RuntimeError, "No seed #{name} for #{klass}")
+      self.planted?(klass, name) || raise(MissingSeedError, "No seed #{name} for #{klass}")
     end
 
     def self.planted?(klass, name)
@@ -27,7 +27,7 @@ module Seed
     end
   
     def self.row(klass)
-      @seeds[klass]
+      @seeds[klass] || raise(MissingRowError, "No row of seeds for #{self}")
     end
   end
 end
@@ -46,6 +46,6 @@ class ActiveRecord::Base
   end
 
   def self.seeds
-    Seed::Base.row(self) || raise(RuntimeError, "No row of seeds for #{self}")
+    Seed::Base.row(self)
   end
 end
