@@ -3,13 +3,13 @@ Seed
 
 Another seeding library for Ruby
 
-Usage
------
-
 Rails 3 and Ruby 1.9
 --------------------
 
 Seed is Rails 3 and Ruby 1.9 compatible
+
+Usage
+-----
 
 Planting a seed
 ---------------
