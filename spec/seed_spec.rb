@@ -5,7 +5,7 @@ require 'seed'
 
 class User < ActiveRecord::Base
   has_many :user_roles
-  has_many :users, :through => :user_roles
+  has_many :roles, :through => :user_roles
   
   validates_presence_of :email
   
@@ -65,7 +65,7 @@ describe Seed do
           user.email = 'user_with_role@example.com'
           user.roles = [Role.seed(:system_administrator)]
         end
-        User.seed(:user_with_role).roles.should_not be_nil
+        User.seed(:user_with_role).roles.should_not be_empty
       end
     end    
   end
