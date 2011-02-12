@@ -27,7 +27,7 @@ module Seed
     end
   
     def self.row(klass)
-      @seeds[klass] || raise(MissingRowError, "No row of seeds for #{self}")
+      @seeds[klass] || raise(MissingRowError, "No row of seeds named #{klass} for #{self}")
     end
   end
 end
