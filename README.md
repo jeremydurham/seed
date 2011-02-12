@@ -26,6 +26,17 @@ or:
 
 Attempting to overwrite an existing seed will result in an error.
 
+Seeding associations
+--------------------
+
+Associations can be handled by first creating a seed:
+
+    Role.seed(:admin, :role => 'admin')
+    
+And then using that seed when generating the associated object:
+
+    User.seed(:bob, :name => 'Bob', :role => Role.seed(:admin))
+
 Retrieving a seed
 -----------------
 
