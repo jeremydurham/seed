@@ -5,6 +5,7 @@ namespace :db do
       desc "Load the seed data from db/seeds/#{task_name}.rb"
       task task_name => :environment do
         require 'seed'
+        ActiveRecord::Base.subclasses.map(&:reset_column_information)
         load(seed_file) if File.exist?(seed_file)
       end
     end
